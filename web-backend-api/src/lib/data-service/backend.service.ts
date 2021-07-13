@@ -763,7 +763,11 @@ export abstract class BackendService {
     if (name.includes('.')) {
       const root = name.substring(0, name.indexOf('.'));
       const child = name.substring(name.indexOf('.') + 1);
-      return this.getFieldValue(item[root], child);
+      if (item && item.hasOwnProperty(root)) {
+        return this.getFieldValue(item[root], child);
+      } else {
+        return undefined;
+      }
     } else {
       return item[name];
     }
